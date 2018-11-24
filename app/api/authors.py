@@ -1,6 +1,8 @@
-from flask import jsonify, request
+from flask import jsonify, request, url_for
+from app import db
 from app.api import bp
 from app.models import Authors
+from app.api.errors import bad_request
 
 @bp.route('/authors/<int:id>', methods=['GET'])
 def get_author(id):
@@ -15,7 +17,19 @@ def get_authors():
 
 @bp.route('/authors', methods=['POST'])
 def create_author():
-	pass
+	data = request.get_json() or {}
+	if name not in data:
+		return bad_request('must include name field')
+	if Authors.query.filter_by(name=data['name']).first():
+		return bad_request('please use a different name')
+	author = Authors()
+	author.from_dict(data, new_user=True)
+	db.session.add(author)
+	db.session.commit()
+	response = jsonify(author.to_dict())
+	response.status_code = 201
+	response.headers['Location'] = url_for('api.get_author', id=author.id)
+	return response
 
 @bp.route('/authors/<int:id>', methods=['PUT'])
 def update_author(id):
