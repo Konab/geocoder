@@ -4,7 +4,7 @@ from app.models import Authors
 
 @bp.route('/authors/<int:id>', methods=['GET'])
 def get_author(id):
-	return jsonify(Authors.query.get_or404(id).to_dict())
+	return jsonify(Authors.query.get_or_404(id).to_dict())
 
 @bp.route('/authors', methods=['GET'])
 def get_authors():
