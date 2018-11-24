@@ -2,7 +2,7 @@ from flask import jsonify
 from app.api import bp
 from app.models import Authors
 
-@bp.route('/authors/<init:id>', methods=['GET'])
+@bp.route('/authors/<int:id>', methods=['GET'])
 def get_author(id):
 	return jsonify(Authors.query.get_or404(id).to_dict())
 
