@@ -18,7 +18,7 @@ def get_authors():
 @bp.route('/authors', methods=['POST'])
 def create_author():
 	data = request.get_json() or {}
-	if name not in data:
+	if 'name' not in data:
 		return bad_request('must include name field')
 	if Authors.query.filter_by(name=data['name']).first():
 		return bad_request('please use a different name')
