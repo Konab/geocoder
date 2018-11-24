@@ -33,4 +33,8 @@ def create_author():
 
 @bp.route('/authors/<int:id>', methods=['PUT'])
 def update_author(id):
-	pass
+	author = Authors.query.get_or_404(id)
+	data = request.get_json() or {}
+	author.from_dict(data)
+	db.session.commit()
+	return jsonify(user.to_dict())
