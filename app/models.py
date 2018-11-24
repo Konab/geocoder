@@ -35,7 +35,7 @@ class Authors(PaginatedAPIMixin, db.Model):
 			'id': self.id,
 			'name': self.name,
 			'_links': {
-				'self': url_for('api.get_user', id=self.id)
+				'self': url_for('api.get_author', id=self.id)
 			}
 		}
 		if include_email:
