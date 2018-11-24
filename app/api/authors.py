@@ -8,7 +8,10 @@ def get_author(id):
 
 @bp.route('/authors', methods=['GET'])
 def get_authors():
-	pass
+	page = request.args.get('page', 1, type=int)
+	per_page = min(request.args.get('per_page', 10, type=int), 100)
+	data = Authors.to_collection_dict(Authors.query, page, per_page, 'api.get_authors')
+	return jsonify(data)
 
 @bp.route('/authors', methods=['POST'])
 def create_author():
