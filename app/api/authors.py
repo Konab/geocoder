@@ -14,6 +14,6 @@ def get_authors():
 def create_author():
 	pass
 
-@bp.route('/authors/<init:id>', methods=['PUT'])
+@bp.route('/authors/<int:id>', methods=['PUT'])
 def update_author(id):
 	pass
