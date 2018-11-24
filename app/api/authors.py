@@ -37,4 +37,4 @@ def update_author(id):
 	data = request.get_json() or {}
 	author.from_dict(data)
 	db.session.commit()
-	return jsonify(user.to_dict())
+	return jsonify(author.to_dict())
