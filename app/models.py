@@ -47,3 +47,5 @@ class Authors(PaginatedAPIMixin, db.Model):
 			if field in data:
 				setattr(self, field, data[field])
 
+	def __repr__(self):
+		return 'Name: {}'.format(self.name)
