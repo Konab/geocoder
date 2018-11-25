@@ -38,3 +38,7 @@ def update_author(id):
 	author.from_dict(data)
 	db.session.commit()
 	return jsonify(author.to_dict())
+
+@bp.route('/test', methods=['GET'])
+def test_get():
+	return jsonify({'message': 'connection: DONE'})
