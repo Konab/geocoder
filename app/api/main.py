@@ -21,6 +21,11 @@ def get_authors():
 def test_get():
 	return jsonify({'connection': 'DONE'})
 
+@bp.route('/get_address_point/<str:address>', methods=['GET'])
+def get_address_point(address):
+	response = db.session.scalar(func.Cos_getaddrespoint(address))
+	return jsonify(response)
+
 
 ### POST functions
 @bp.route('/authors', methods=['POST'])
