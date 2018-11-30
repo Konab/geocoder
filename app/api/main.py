@@ -4,6 +4,8 @@ from app.api import bp
 from app.models import Authors
 from app.api.errors import bad_request
 
+
+### Get functions
 @bp.route('/authors/<int:id>', methods=['GET'])
 def get_author(id):
 	return jsonify(Authors.query.get_or_404(id).to_dict())
@@ -15,6 +17,12 @@ def get_authors():
 	data = Authors.to_collection_dict(Authors.query, page, per_page, 'api.get_authors')
 	return jsonify(data)
 
+@bp.route('/test', methods=['GET'])
+def test_get():
+	return jsonify({'connection': 'DONE'})
+
+
+### POST functions
 @bp.route('/authors', methods=['POST'])
 def create_author():
 	data = request.get_json() or {}
@@ -31,6 +39,7 @@ def create_author():
 	response.headers['Location'] = url_for('api.get_author', id=author.id)
 	return response
 
+### PUT functions
 @bp.route('/authors/<int:id>', methods=['PUT'])
 def update_author(id):
 	author = Authors.query.get_or_404(id)
@@ -38,7 +47,3 @@ def update_author(id):
 	author.from_dict(data)
 	db.session.commit()
 	return jsonify(author.to_dict())
-
-@bp.route('/test', methods=['GET'])
-def test_get():
-	return jsonify({'connection': 'DONE'})
