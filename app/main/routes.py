@@ -1,3 +1,4 @@
+from app import db
 from app.main import bp
 from app.models import Authors
 from sqlalchemy import func
