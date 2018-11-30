@@ -41,4 +41,4 @@ def update_author(id):
 
 @bp.route('/test', methods=['GET'])
 def test_get():
-	return jsonify({'message': 'connection: DONE'})
+	return jsonify({'connection': 'DONE'})
