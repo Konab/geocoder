@@ -24,7 +24,7 @@ def test_get():
 
 #######___MAIN_FUNCTION___#######
 @bp.route('/get_address_point', methods=['GET'])
-def get_address_point(address):
+def get_address_point():
 	req = request.args.to_dict()
 	print(req)
 	address = req['address']
