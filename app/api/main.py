@@ -35,6 +35,7 @@ def get_address_point():
 @bp.route('/distance')
 def get_distance():
 	req = request.args.to_dict()
+	print(req)
 	response = db.session.scalar(func.Cos_diapason(req['point_1'], req['point_2']))
 	return jsonify({'distance': response})
 
