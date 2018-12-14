@@ -27,6 +27,7 @@ def test_get():
 def get_address_point(address):
 	req = request.args.to_dict()
 	address = req['address']
+	print(address)
 	response = db.session.scalar(func.Cos_getaddrespoint(address))
 	return jsonify(response)
 
