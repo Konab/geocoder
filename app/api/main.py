@@ -1,10 +1,9 @@
 from flask import jsonify, request, url_for
 from sqlalchemy import func
 from app import db
-from app.api import bp
+from app.api import bp, api_functions
 from app.models import Authors
 from app.api.errors import bad_request
-import api_functions as api_func
 
 
 ### Get functions
