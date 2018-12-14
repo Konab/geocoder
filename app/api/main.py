@@ -32,6 +32,12 @@ def get_address_point():
 	result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
 	return jsonify(result)
 
+@bp.route('/distance')
+def get_distance():
+	req = request.args.to_dict()
+	response = db.session.scalar(func.Cos_diapason(req['point_1'], req['point_2']))
+	return jsonify({'distance': response})
+
 # @bp.route('/get_calculated_point/<given_point>')
 
 ### POST functions
