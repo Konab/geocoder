@@ -19,13 +19,17 @@ def get_authors():
 
 @bp.route('/test', methods=['GET'])
 def test_get():
+	test = request.args.to_dict()
+	print(test)
 	return jsonify({'connection': 'DONE'})
 
+#######___MAIN_FUNCTION___#######
 @bp.route('/get_address_point/<address>', methods=['GET'])
 def get_address_point(address):
 	response = db.session.scalar(func.Cos_getaddrespoint(address))
 	return jsonify(response)
 
+# @bp.route('/get_calculated_point/<given_point>')
 
 ### POST functions
 @bp.route('/authors', methods=['POST'])
