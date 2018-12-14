@@ -23,8 +23,10 @@ def test_get():
 	return jsonify({'connection': 'DONE', **test})
 
 #######___MAIN_FUNCTION___#######
-@bp.route('/get_address_point/<address>', methods=['GET'])
+@bp.route('/get_address_point', methods=['GET'])
 def get_address_point(address):
+	req = request.args.to_dict()
+	address = req['address']
 	response = db.session.scalar(func.Cos_getaddrespoint(address))
 	return jsonify(response)
 
