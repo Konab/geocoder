@@ -20,8 +20,7 @@ def get_authors():
 @bp.route('/test', methods=['GET'])
 def test_get():
 	test = request.args.to_dict()
-	print(test)
-	return jsonify({'connection': 'DONE'})
+	return jsonify({'connection': 'DONE', **test})
 
 #######___MAIN_FUNCTION___#######
 @bp.route('/get_address_point/<address>', methods=['GET'])
