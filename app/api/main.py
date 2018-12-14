@@ -60,7 +60,8 @@ def get_distance():
 		[json/binary] -- словарь с растоянием между точками в метрах
 	'''
 	req = request.args.to_dict()
-	response = db.session.scalar(func.Cos_diapason(req['point_1'], req['point_2']))
+	response = db.session.scalar(func.ST_DistanceSphere(func.ST_SetSRID(func.ST_Point(req['point_1']), 4326), func.ST_SetSRID(func.ST_Point(req['point_2']), 4326)))
+	# response = db.session.scalar(func.Cos_diapason(req['point_1'], req['point_2']))
 	return jsonify({'distance': response})
 
 
