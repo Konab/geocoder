@@ -4,6 +4,7 @@ from app import db
 from app.api import bp
 from app.models import Authors
 from app.api.errors import bad_request
+import api_functions as api_func
 
 
 ### Get functions
@@ -21,6 +22,7 @@ def get_authors():
 @bp.route('/test', methods=['GET'])
 def test_get():
 	test = request.args.to_dict()
+	print(api_func.get_address_geom('**** Оренбург Спартаковская 61'))
 	return jsonify({'connection': 'DONE', **test})
 
 #######___MAIN_FUNCTION___#######
