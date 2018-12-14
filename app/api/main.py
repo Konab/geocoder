@@ -40,12 +40,9 @@ def get_address_point():
 	'''
 	req = request.args.to_dict()
 	address = req['address']
-	print(address)
-	response = db.session.scalar(func.Cos_getaddpoint(address))#.replace('(', '').replace(')','').split(',')
-	print(response)
-	# result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
-	# return jsonify(result)
-	return response
+	response = db.session.scalar(func.Cos_getaddpoint(address)).replace('(', '').replace(')','').split(',')
+	result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
+	return jsonify(result)
 
 @bp.route('/distance')
 def get_distance():
