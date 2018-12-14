@@ -57,12 +57,13 @@ def get_distance():
 		point_2 {str} -- геоточка в формате Point(lon, lat)
 	
 	Returns:
-		[json/binary] -- словарь с растоянием между точками в метрах
+		[json/binary] -- словарь с растоянием между точками в метрах и bool входит ли оно в диапазон
 	'''
 	req = request.args.to_dict()
 	response = db.session.scalar(func.Cos_diapason(req['point_1'], req['point_2']))
-	print(type(response))
-	return jsonify({'distance': response})
+	result = {'distance': response}
+	result['InRange'] = True if response < 300 else False
+	return jsonify(result)
 
 
 ### POST functions
