@@ -22,7 +22,6 @@ def get_authors():
 @bp.route('/test', methods=['GET'])
 def test_get():
 	test = request.args.to_dict()
-	print(api_func.get_address_geom('**** Оренбург Спартаковская 61'))
 	return jsonify({'connection': 'DONE', **test})
 
 #######___MAIN_FUNCTION___#######
@@ -41,7 +40,9 @@ def get_address_point():
 	'''
 	req = request.args.to_dict()
 	address = req['address']
-	response = db.session.scalar(func.Cos_getaddpoint(address)).replace('(', '').replace(')','').split(',')
+	print(address)
+	response = db.session.scalar(func.Cos_getaddpoint(address))#.replace('(', '').replace(')','').split(',')
+	print(response)
 	result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
 	return jsonify(result)
 
