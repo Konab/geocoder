@@ -26,6 +26,17 @@ def test_get():
 #######___MAIN_FUNCTION___#######
 @bp.route('/get_address_point', methods=['GET'])
 def get_address_point():
+	'''Выдает геоточку по адресу
+	
+	Decorators:
+		bp.route - общается по .../api/get_address_point
+
+	Arguments:
+		address {str} -- адрес на кириллице
+	
+	Returns:
+		json/binary -- словарь с геоданными о здании
+	'''
 	req = request.args.to_dict()
 	address = req['address']
 	response = db.session.scalar(func.Cos_getaddpoint(address)).replace('(', '').replace(')','').split(',')
@@ -34,12 +45,24 @@ def get_address_point():
 
 @bp.route('/distance')
 def get_distance():
+	'''Растояние между точками в метрах
+
+	lon и lat идут в таком порядке, для увеличения точности вычислений на стороне PSQL
+	
+	Decorators:
+		bp.route - общается по .../api/distance
+
+	Arguments:
+		point_1 {str} -- геоточка в формате Point(lon, lat)
+		point_2 {str} -- геоточка в формате Point(lon, lat)
+	
+	Returns:
+		[json/binary] -- словарь с растоянием между точками в метрах
+	'''
 	req = request.args.to_dict()
-	print(req)
 	response = db.session.scalar(func.Cos_diapason(req['point_1'], req['point_2']))
 	return jsonify({'distance': response})
 
-# @bp.route('/get_calculated_point/<given_point>')
 
 ### POST functions
 @bp.route('/authors', methods=['POST'])
