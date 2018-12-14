@@ -61,6 +61,7 @@ def get_distance():
 	'''
 	req = request.args.to_dict()
 	response = db.session.scalar(func.Cos_diapason(req['point_1'], req['point_2']))
+	print(type(response))
 	return jsonify({'distance': response})
 
 
