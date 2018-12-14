@@ -26,6 +26,7 @@ def test_get():
 @bp.route('/get_address_point', methods=['GET'])
 def get_address_point(address):
 	req = request.args.to_dict()
+	print(req)
 	address = req['address']
 	print(address)
 	response = db.session.scalar(func.Cos_getaddrespoint(address))
