@@ -39,12 +39,13 @@ def get_address_point():
 		json/binary -- словарь с геоданными о здании
 	'''
 	req = request.args.to_dict()
-	address = req['address']
+	address = req['address'].encode('utf-8')
 	print(address)
 	response = db.session.scalar(func.Cos_getaddpoint(address))#.replace('(', '').replace(')','').split(',')
 	print(response)
-	result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
-	return jsonify(result)
+	# result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
+	# return jsonify(result)
+	return response
 
 @bp.route('/distance')
 def get_distance():
