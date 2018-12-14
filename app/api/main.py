@@ -28,8 +28,11 @@ def test_get():
 def get_address_point():
 	req = request.args.to_dict()
 	address = req['address']
-	response = db.session.scalar(func.Cos_getaddrespoint(address)).replace('(', '').replace(')','').split(',')
-	result = dict(zip(('osm_id', 'city', 'housenumber', 'street', 'lat', 'lon'), (response[0], response[1], response[2], response[3], response[4], response[5])))
+	response = db.session.scalar(func.Cos_getaddrespoint(address)).replace('(', '').replace(')','')
+	while '"' in response:
+		response.replace('"', '')
+	response.split(',')
+	result = dict(zip(('id', 'city', 'housenumber', 'street', 'lat', 'lon'), (response[0], response[1], response[2], response[3], response[4], response[5])))
 	return jsonify(result)
 
 # @bp.route('/get_calculated_point/<given_point>')
