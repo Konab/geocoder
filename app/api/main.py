@@ -1,4 +1,5 @@
 from flask import jsonify, request, url_for
+from sqlalchemy import func
 from app import db
 from app.api import bp
 from app.models import Authors
