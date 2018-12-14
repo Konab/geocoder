@@ -39,7 +39,7 @@ def get_address_point():
 		json/binary -- словарь с геоданными о здании
 	'''
 	req = request.args.to_dict()
-	address = req['address'].encode('utf-8')
+	address = req['address']
 	print(address)
 	response = db.session.scalar(func.Cos_getaddpoint(address))#.replace('(', '').replace(')','').split(',')
 	print(response)
