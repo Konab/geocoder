@@ -94,14 +94,14 @@ def correct_point():
 		# Если точка входит в радиус допустимости
 		# Находим проекцию точки на дороге для адреса
 		closest_address_point = eval(db.session.scalar(func.Cos_getclosestpoint(address_geom, road_geom)))
-		# closest_address_point = db.session(func.Cos_from_geom(closest_address_point_geom))
 		# Находим проекцию точки дтп на дороге
 		closest_point = eval(db.session.scalar(func.Cos_getclosestpoint(point_geom, road_geom)))
-		# closest_point = db.session(func.Cos_from_geom(closest_point_geom))
+		# Находим среднее между точками
 		calculated_point = ((closest_address_point[0]+closest_point[0])/2, (closest_address_point[1]+closest_point[1])/2)
+		# reult_point = eval(db.session.scalar(func.Cos_getclosestpoint(address_geom, road_geom)))
 		print(calculated_point)
 
-	return jsonify(req)
+	return jsonify({'result': calculated_point})
 
 
 ### POST functions
