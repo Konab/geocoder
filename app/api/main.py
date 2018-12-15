@@ -21,6 +21,7 @@ def get_authors():
 
 @bp.route('/test', methods=['GET'])
 def test_get():
+	print(api_func.get_street_geom(api_func.get_address_geom('Москва Большая переяславская 50'), 'Москва Большая переяславская'))
 	test = request.args.to_dict()
 	return jsonify({'connection': 'DONE', **test})
 
