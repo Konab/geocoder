@@ -14,4 +14,4 @@ def get_street_geom(building, street):
 def make_point_geom(point):
 	# Переводит точку в geom
 	# Возвращает Geometry
-	return df.session.scalar(func.Cos_makepoint(point))
+	return db.session.scalar(func.Cos_makepoint(point))
