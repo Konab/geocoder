@@ -90,7 +90,16 @@ def correct_point():
 	address_geom = api_func.get_address_geom(req['address'])
 	road_geom = api_func.get_street_geom(address_geom, req['road'])
 	point_geom = api_func.make_point_geom(req['point'])
-	print(db.session.scalar(func.Cos_diapason_for_geom(address_geom, point_geom)))
+	if db.session.scalar(func.Cos_diapason_for_geom(address_geom, point_geom)) < 300:
+		# Если точка входит в радиус допустимости
+		# Находим проекцию точки на дороге для адреса
+		closest_address_point_geom = db.session.scalar(func.Cos_getclosestpoint(address_geom, road_geom))
+		closest_address_point = db.session(func.Cos_from_geom(closest_address_point_geom))
+		# Находим проекцию точки дтп на дороге
+		closest_point_geom = db.session.scalar(func.Cos_getclosestpoint(point_geom, road_geom))
+		closest_point = db.session(func.Cos_from_geom(closest_point_geom))
+		print(closest_address_point, closest_point)
+
 	return jsonify(req)
 
 
