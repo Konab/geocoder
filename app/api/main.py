@@ -72,7 +72,8 @@ def get_closest_point_on_road():
 	req = request.args.to_dict()
 	address_geom = api_func.get_address_geom(req['address'])
 	road_geom = api_func.get_street_geom(address_geom, req['road'])
-	return jsonify({1: address_geom, 2: road_geom})
+	response = db.session.scalar(func.Cos_getclosestpoint(address_geom, road_geom))
+	return jsonify({1: address_geom, 2: road_geom, 'res': response})
 
 
 ### POST functions
