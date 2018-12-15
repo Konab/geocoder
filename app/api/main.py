@@ -87,6 +87,12 @@ def get_closest_point_on_road():
 @bp.route('/correct_point')
 def correct_point():
 	req = request.args.to_dict()
+	address_geom = api_func.get_address_geom(req['address'])
+	road_geom = api_func.get_street_geom(address_geom, req['road'])
+	point_geom = api_func.make_point_geom(req['point'])
+	print(address_geom)
+	print(road_geom)
+	print(point_geom)
 	return jsonify(req)
 
 
