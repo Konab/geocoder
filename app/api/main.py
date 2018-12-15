@@ -90,7 +90,7 @@ def correct_point():
 	address_geom = api_func.get_address_geom(req['address'])
 	road_geom = api_func.get_street_geom(address_geom, req['road'])
 	point_geom = api_func.make_point_geom(req['point'])
-	print(db.session.scalar(func.Cos_diapason(address_geom, point_geom)))
+	print(db.session.scalar(func.Cos_diapason_for_geom(address_geom, point_geom)))
 	return jsonify(req)
 
 
