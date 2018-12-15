@@ -69,12 +69,25 @@ def get_distance():
 
 @bp.route('/closest_point_on_road')
 def get_closest_point_on_road():
+	'''Находит проекуию точки на дороге
+
+	Decorators:
+		bp.route - общяется по /closest_point_on_road
+	
+	Returns:
+		[json/binary] -- словарь с широтой и долготой искомой точки
+	'''
 	req = request.args.to_dict()
 	address_geom = api_func.get_address_geom(req['address'])
 	road_geom = api_func.get_street_geom(address_geom, req['road'])
 	response = eval(db.session.scalar(func.Cos_getclosestpoint(address_geom, road_geom)))
 	result = {'lat': response[0], 'lon': response[1]}
 	return jsonify(result)
+
+@bp.route('/correct_point')
+def correct_point():
+	req = request.args.to_dict()
+	return jsonify(req)
 
 
 ### POST functions
