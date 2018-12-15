@@ -99,8 +99,8 @@ def correct_point():
 		# Находим среднее между точками
 		calculated_point = ((closest_address_point[0]+closest_point[0])/2, (closest_address_point[1]+closest_point[1])/2)
 		calculated_point_geom = db.session.scalar(func.cos_makegeom(calculated_point[1], calculated_point[0]))
-		# reult_point = eval(db.session.scalar(func.Cos_getclosestpoint(address_geom, road_geom)))
-		print(calculated_point_geom)
+		reult_point = eval(db.session.scalar(func.Cos_getclosestpoint(calculated_point_geom, road_geom)))
+		print(reult_point)
 
 	return jsonify({'result': calculated_point})
 
