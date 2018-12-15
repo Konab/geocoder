@@ -67,6 +67,12 @@ def get_distance():
 	return jsonify(result)
 
 
+@bp.route('/closest_point_on_road')
+def get_closest_point_on_road():
+	req = request.args.to_dict()
+	return jsonify(req)
+
+
 ### POST functions
 @bp.route('/authors', methods=['POST'])
 def create_author():
