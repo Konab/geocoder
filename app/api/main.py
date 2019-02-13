@@ -44,7 +44,8 @@ def get_address_point():
 	try:
 		response = db.session.scalar(func.Cos_getaddpoint(address)).replace('(', '').replace(')','').split(',')
 	except:
-		response = geocoder.yandex('address')
+		response = geocoder.yandex(address)
+		print(address)
 		print(response)
 	result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
 	return jsonify(result)
