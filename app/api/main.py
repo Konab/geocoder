@@ -46,7 +46,6 @@ def get_address_point():
 		result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
 	except AttributeError:
 		response = geocoder.yandex(address)
-		print(response)
 		result = dict(zip(('lat', 'lon'), (response.lat, response.lng)))
 	return jsonify(result)
 
@@ -93,7 +92,12 @@ def get_closest_point_on_road():
 @bp.route('/correct_point')
 def correct_point():
 	req = request.args.to_dict()
-	address_geom = api_func.get_address_geom(req['address'])
+	try:
+		address_geom = api_func.get_address_geom(req['address'])
+	except:
+		g = geocoder.yandex(address)
+		y_point = 'POINT({} {})'.format(g.lat, g.lng)
+		address_geom = api_func.make_point_geom(y_point)
 	road_geom = api_func.get_street_geom(address_geom, req['road'])
 	point_geom = api_func.make_point_geom(req['point'])
 	if db.session.scalar(func.Cos_diapason_for_geom(address_geom, point_geom)) < 300:
