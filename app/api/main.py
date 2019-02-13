@@ -93,17 +93,15 @@ def get_closest_point_on_road():
 def correct_point():
 	req = request.args.to_dict()
 	address = req['n_p'] + ' ' + req['street'] + ' ' + req['house']
-	print(address)
+	road = road = req['n_p'] + ' ' + req['street']
 	try:
-		address_geom = api_func.get_address_geom(req['address'])
+		address_geom = api_func.get_address_geom(address)
 	except:
 		g = geocoder.yandex(address)
 		print(g)
 		y_point = 'POINT({} {})'.format(g.lat, g.lng)
-		print(y_point)
 		address_geom = api_func.make_point_geom(y_point)
-		print(address_geom)
-	road_geom = api_func.get_street_geom(address_geom, req['road'])
+	road_geom = api_func.get_street_geom(address_geom, road)
 	point_geom = api_func.make_point_geom(req['point'])
 	if db.session.scalar(func.Cos_diapason_for_geom(address_geom, point_geom)) < 300:
 		# Если точка входит в радиус допустимости
