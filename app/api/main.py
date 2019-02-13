@@ -43,11 +43,10 @@ def get_address_point():
 	address = req['address']
 	try:
 		response = db.session.scalar(func.Cos_getaddpoint(address)).replace('(', '').replace(')','').split(',')
+		result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
 	except:
 		response = geocoder.yandex(address)
-		print(address)
-		print(response)
-	result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
+		result = dict(zip('lat', 'lon'), (response['lat'], response['lng']))
 	return jsonify(result)
 
 @bp.route('/distance')
