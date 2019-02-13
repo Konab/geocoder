@@ -92,7 +92,8 @@ def get_closest_point_on_road():
 @bp.route('/correct_point')
 def correct_point():
 	req = request.args.to_dict()
-	print(req)
+	address = req['n_p'] + ' ' + req['street'] + ' ' + req['house']
+	print(address)
 	try:
 		address_geom = api_func.get_address_geom(req['address'])
 	except:
