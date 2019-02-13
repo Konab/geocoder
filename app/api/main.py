@@ -46,7 +46,7 @@ def get_address_point():
 		result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
 	except AttributeError:
 		response = geocoder.yandex(address)
- 		print(response)
+		print(response)
 		result = dict(zip('lat', 'lon'), (response['lat'], response['lng']))
 	return jsonify(result)
 
