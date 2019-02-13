@@ -96,8 +96,11 @@ def correct_point():
 		address_geom = api_func.get_address_geom(req['address'])
 	except:
 		g = geocoder.yandex(address)
+		print(g)
 		y_point = 'POINT({} {})'.format(g.lat, g.lng)
+		print(y_point)
 		address_geom = api_func.make_point_geom(y_point)
+		print(address_geom)
 	road_geom = api_func.get_street_geom(address_geom, req['road'])
 	point_geom = api_func.make_point_geom(req['point'])
 	if db.session.scalar(func.Cos_diapason_for_geom(address_geom, point_geom)) < 300:
