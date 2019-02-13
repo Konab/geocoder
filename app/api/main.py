@@ -5,6 +5,7 @@ from app.api import bp
 from app.api import api_functions as api_func
 from app.models import Authors
 from app.api.errors import bad_request
+import geocoder
 
 
 ### Get functions
@@ -40,7 +41,11 @@ def get_address_point():
 	'''
 	req = request.args.to_dict()
 	address = req['address']
-	response = db.session.scalar(func.Cos_getaddpoint(address)).replace('(', '').replace(')','').split(',')
+	try:
+		response = db.session.scalar(func.Cos_getaddpoint(address)).replace('(', '').replace(')','').split(',')
+	except:
+		response = geocoder.yandex('address')
+		print(response)
 	result = dict(zip(('id', 'lat', 'lon'), (response[0], response[1], response[2])))
 	return jsonify(result)
 
