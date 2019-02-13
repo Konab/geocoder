@@ -94,10 +94,8 @@ def correct_point():
 	req = request.args.to_dict()
 	address = req['n_p'] + ' ' + req['street'] + ' ' + req['house']
 	road = road = req['n_p'] + ' ' + req['street']
-	try:
-		address_geom = api_func.get_address_geom(address)
-		print(address_geom)
-	except:
+	address_geom = api_func.get_address_geom(address)
+	if not address_geom:
 		g = geocoder.yandex(address)
 		print(g)
 		y_point = 'POINT({} {})'.format(g.lat, g.lng)
