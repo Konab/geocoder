@@ -16,4 +16,4 @@ deploy on DO
 В данном репозитории находится код самого Веб-сервиса, без БД. 
 
 
-'''Для работы с приложением: https://github.com/Konab/Geocoder_API'''
+> Для работы с приложением: https://github.com/Konab/Geocoder_API
